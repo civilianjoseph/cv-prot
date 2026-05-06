@@ -1,7 +1,10 @@
 export const gameState = {
 
-    nickname: "",
-    gender: "",
-    score: 0,
-    position: 0
+    player: {
+        scoreGood: 0,
+        scoreBad: 0,
+        nickname: "",
+        gender: "",
+        position: 0
+  },
 };
