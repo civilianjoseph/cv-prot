@@ -20,6 +20,9 @@ export const spaceTypes = {
         label: "Chuva",
         description: "Chuva forte, traz nuvens que afetam negativamente a geração de energia solar, mas produz ventos",
         effect: (state) => { state.player.scoreGood += 3; state.player.scoreBad += 3; return state; }},  
-    
 
+}
+export function applyEffect(state, spaceType) {
+  const space = spaceTypes[spaceType];
+  return space.effect(state);
 }
