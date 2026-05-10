@@ -7,4 +7,10 @@ export const gameState = {
         gender: "",
         position: 0
   },
+
+    score: {
+        sustentabilidade: 50,
+        economia: 50,
+        popularidade: 50
+    }
 };
