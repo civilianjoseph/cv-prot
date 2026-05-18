@@ -36,3 +36,46 @@ function playTurn() {
 
     gameState.turn += 1;
 }
+
+const playerData = JSON.parse(localStorage.getItem("cidadeverdePlayer"));
+
+if (playerData) {
+    gameState.nickname = playerData.nickname;
+    gameState.gender = playerData.gender;
+}
+
+document.getElementById("playerName").textContent = "Jogador: " + gameState.nickname;
+
+
+const totalCasas = 20;
+
+const board = document.getElementById("board");
+
+for (let i = 0; i < totalCasas; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
+    cell.textContent = i;
+    board.appendChild(cell);
+}
+
+function atualizarTabuleiro() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach(cell => cell.classList.remove("player"));
+    cells[gameState.position].classList.add("player");
+}
+
+const btn = document.getElementById("rollDice");
+
+btn.addEventListener("click", () => {
+    const valor = rollDice();
+    
+    document.getElementById("diceResult").textContent = "Você tirou: " + valor;
+
+    if (gameState.position + valor >= totalCasas) {
+        gameState.position = totalCasas - 1;
+    }
+
+    atualizarTabuleiro
+});
+
+atualizarTabuleiro();
