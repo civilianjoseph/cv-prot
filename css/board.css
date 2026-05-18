@@ -1,20 +1,24 @@
 #board {
     display: grid;
-    grid-template-columns: repeat(5, 60px);
-    gap: 10px;
-    margin: 20px auto;
+    grid-template-columns: repeat(5, 90px);
+    gap: 15px;
     justify-content: center;
+    margin-top: 30px;
 }
+
 .cell {
-    width: 60px;
-    height: 60px;
-    background-color: #4caf50;
+    width: 90px;
+    height: 90px;
+    background-color: #22c55e;
+    border-radius: 12px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    align-items: center;
+    font-size: 22px;     
     font-weight: bold;
 }
+
 .player{
     background: yellow;
+    color:black;
 }

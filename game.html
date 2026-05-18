@@ -1,37 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cidade Verde</title>
+
+    <title>CidadeVerde - Jogo</title>
+
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/board.css">
+
 </head>
 <body>
-<div class="game-container">
-    <div class="top-bar">
-        <span id="playerName"></span>
-        <span id="turno"></span>
+
+    <div class="game-layout">
+
+        <div class="left-panel">
+
+            <div class="dice-area">
+            
+                <h2>🎲 Dado</h2>
+                <button id="rollDiceBtn">Rolar Dado</button>
+            </div>
+
+        </div>
+
+        <div class="center-panel">
+            
+            <h1>🌱 CidadeVerde</h1>
+            <div id="board"></div>
+
+        </div>
+
+        <div class="right-panel">
+            
+            <h2>📊 Scores</h2>
+
+            <div class="score-box">🌱 Sustentabilidade: <span id="eco"></span></div>
+            <div class="score-box">💰 Economia: <span id="money"></span></div>
+            <div class="score-box">😊 Popularidade: <span id="popularity"></span></div>
+                        
+        </div>
+
     </div>
 
-    <div id="board">
-
+    <div id="dicePopup" class="popup hidden">
+        <div class="popup-content">
+            <h2>🎲 Você tirou</h2>
+            <h1 id="diceNumber"></h1>
+            <button id="closeDicePopup">Continuar</button>
+        </div>
     </div>
 
-    <div class="action">
-        <button id="rollDice">Rolar Dado</button>
-        <p id="diceResult"></p>
+    <div id="decisionPopup" class="popup hidden">
+        <div class="popup-content">
+            <h2 id="question"></h2>
+            <div id="options"></div>
+        </div>
     </div>
+
     
-    <div class="score">
-        <p>Sustentabilidade> <span id="eco"></span></p>
-        <p>Economia> <span id="money"></span></p>
-        <p>Popularidade> <span id="pop"></span></p>
-    </div>
-
-</div>
-
-<script type="module" src="./src/main.js"></script>
-
+    <script type="module" src="./src/main.js"></script>
 </body>
 </html>

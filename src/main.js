@@ -1,81 +1,210 @@
-import { rollDice } from "./dice.js";
-import { gameState } from "./gameState.js";
-import { applyEffect } from "./effects.js";
+import { gameState }from "./game/gameState.js";
+import { rollDice }from "./game/dice.js";
+import { decisions }from "./game/decisions.js";
+import { applyEffects }from "./game/effects.js";
 
-const btn = document.getElementById("startBtn");
 
-btn.addEventListener("click", () => {
-    const nickname =
-    document.getElementById("nickname").value.trim();
+const startBtn = document.getElementById("startBtn");
 
-    const gender =
-    document.getElementById("gender").value;
+if(startBtn){
 
-    const msg =
-    document.getElementById("msg");
+    startBtn.addEventListener("click", () => {
 
-    if(nickname === "" || gender === "") {
-        msg.textContent =
-        "Por favor, preencha todos os campos.";
-        return;
-    }
+        const nickname = document.getElementById("nickname").value;
 
-    gameState.nickname = nickname;
-    gameState.gender = gender;
-    
-    localStorage.setItem("cidadeverdePlayer", JSON.stringify(gameState));
+        const msg = document.getElementById("msg");
 
-    window.location.href = "game.html";
-});
+        if(nickname === ""){msg.textContent ="Digite um nickname";
 
-function playTurn() {
-    const result = rollDice();
-    gameState.lastRoll = result;
-    const playerSpace = getSpace(gameState.player.position);
-    applyEffect(gameState, "player", playerSpace);
+            return;
+        }
 
-    gameState.turn += 1;
+        gameState.player.nickname = nickname;
+
+        localStorage.setItem("cidadeverdePlayer",JSON.stringify(gameState));
+
+        window.location.href ="game.html";
+    });
 }
 
-const playerData = JSON.parse(localStorage.getItem("cidadeverdePlayer"));
-
-if (playerData) {
-    gameState.nickname = playerData.nickname;
-    gameState.gender = playerData.gender;
-}
-
-document.getElementById("playerName").textContent = "Jogador: " + gameState.nickname;
-
-
-const totalCasas = 20;
 
 const board = document.getElementById("board");
 
-for (let i = 0; i < totalCasas; i++) {
-    const cell = document.createElement("div");
-    cell.classList.add("cell");
-    cell.textContent = i;
-    board.appendChild(cell);
-}
+if(board){
 
-function atualizarTabuleiro() {
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach(cell => cell.classList.remove("player"));
-    cells[gameState.position].classList.add("player");
-}
+    const savedData =JSON.parse(localStorage.getItem("cidadeverdePlayer"));
 
-const btn = document.getElementById("rollDice");
+    if(savedData){
 
-btn.addEventListener("click", () => {
-    const valor = rollDice();
-    
-    document.getElementById("diceResult").textContent = "Você tirou: " + valor;
+        gameState.player =
+        savedData.player;
 
-    if (gameState.position + valor >= totalCasas) {
-        gameState.position = totalCasas - 1;
+        gameState.score =
+        savedData.score;
     }
 
-    atualizarTabuleiro
-});
 
-atualizarTabuleiro();
+    updateScore();
+
+
+    for(let i = 0; i < 20; i++){
+
+        const cell =
+        document.createElement("div");
+
+        cell.classList.add("cell");
+
+        cell.textContent = i;
+
+        board.appendChild(cell);
+    }
+
+
+    updateBoard();
+
+
+    const rollDiceBtn =
+    document.getElementById("rollDice");
+
+
+    rollDiceBtn.addEventListener("click", () => {
+
+        const result =
+        rollDice();
+
+        showDicePopup(result);
+
+    });
+
+}
+
+
+function showDicePopup(number){
+
+    const popup =
+    document.getElementById("dicePopup");
+
+    popup.classList.remove("hidden");
+
+    document.getElementById("diceNumber")
+    .textContent = number;
+
+
+    document.getElementById("closeDicePopup")
+    .onclick = () => {
+
+        popup.classList.add("hidden");
+
+        movePlayer(number);
+    };
+}
+
+
+
+function movePlayer(steps){
+
+    gameState.player.position += steps;
+
+    if(gameState.player.position > 19){
+
+        gameState.player.position = 19;
+    }
+
+    updateBoard();
+
+    showDecision();
+}
+
+
+
+function updateBoard(){
+
+    const cells =
+    document.querySelectorAll(".cell");
+
+    cells.forEach(cell => {
+
+        cell.classList.remove("player");
+    });
+
+    cells[
+        gameState.player.position
+    ].classList.add("player");
+}
+
+
+
+function showDecision(){
+
+    const popup =
+    document.getElementById("decisionPopup");
+
+    popup.classList.remove("hidden");
+
+    const decision =
+    decisions[
+        gameState.player.position %
+        decisions.length
+    ];
+
+    document.getElementById("question")
+    .textContent =
+    decision.question;
+
+    const options =
+    document.getElementById("options");
+
+    options.innerHTML = "";
+
+
+    decision.options.forEach(option => {
+
+        const btn =
+        document.createElement("button");
+
+        btn.textContent =
+        option.text;
+
+        btn.style.display = "block";
+
+        btn.style.margin =
+        "10px auto";
+
+
+        btn.onclick = () => {
+
+            applyEffects(
+                gameState,
+                option.effects
+            );
+
+
+            updateScore();
+
+            popup.classList.add("hidden");
+
+            localStorage.setItem(
+                "cidadeverdePlayer",
+                JSON.stringify(gameState)
+            );
+        };
+
+        options.appendChild(btn);
+    });
+}
+
+
+function updateScore(){
+
+    document.getElementById("eco")
+    .textContent =
+    gameState.score.sustentabilidade;
+
+    document.getElementById("money")
+    .textContent =
+    gameState.score.economia;
+
+    document.getElementById("pop")
+    .textContent =
+    gameState.score.popularidade;
+}
