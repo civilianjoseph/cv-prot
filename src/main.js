@@ -64,7 +64,7 @@ if(board){
 
 
     const rollDiceBtn =
-    document.getElementById("rollDice");
+    document.getElementById("rollDiceBtn");
 
 
     rollDiceBtn.addEventListener("click", () => {
@@ -204,7 +204,7 @@ function updateScore(){
     .textContent =
     gameState.score.economia;
 
-    document.getElementById("pop")
+    document.getElementById("popularity")
     .textContent =
     gameState.score.popularidade;
 }

@@ -1,5 +1,5 @@
 export function applyEffects(gameState, effects) {
-    gameState.scores.sustentabilidade += effects.sustentabilidade;
-    gameState.scores.economia += effects.economia;
-    gameState.scores.popularidade += effects.popularidade;
+    gameState.score.sustentabilidade += effects.sustentabilidade;
+    gameState.score.economia += effects.economia;
+    gameState.score.popularidade += effects.popularidade;
 }

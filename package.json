@@ -1,0 +1,21 @@
+{
+  "name": "cv-prot",
+  "version": "1.0.0",
+  "description": "Um jogo simples onde o jogador joga um dado, e é afetado pelas casas onde cai, permitindo pequenas escolhas em seu caminho.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/civilianjoseph/cv-prot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/civilianjoseph/cv-prot/issues"
+  },
+  "homepage": "https://github.com/civilianjoseph/cv-prot#readme"
+}
