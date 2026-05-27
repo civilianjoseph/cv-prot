@@ -1,50 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>CidadeVerde</title>
-
-
-    <link rel="stylesheet" href="./css/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CidadeVerde — Jogo de Tabuleiro</title>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
-
 <body>
 
+  <div class="home-container">
 
-
-    <div class="home-container">
-
-
-        <h1>🌱 CidadeVerde</h1>
-
-        <p>
-            Jogo educativo sobre sustentabilidade
-            e energias renováveis
-        </p>
-
-
-        <input
-            type="text"
-            id="nickname"
-            placeholder="Digite seu nickname"
-        >
-
-        <button id="startBtn">
-            Iniciar Jogo
-        </button>
-
-        <p id="msg"></p>
-
+    <div class="home-hero">
+      <h1>🌱 CidadeVerde</h1>
+      <p class="home-subtitle">Jogo educativo de tabuleiro sobre energias renováveis no Brasil</p>
     </div>
 
+    <div class="home-form">
+      <label for="nickname">Seu nome</label>
+      <input type="text" id="nickname" placeholder="Ex: Ana Lima" maxlength="20" autocomplete="off">
 
-    <script type="module" src="./src/main.js"></script>
+      <label class="region-label">Escolha sua região</label>
 
+      <div class="region-grid">
+
+        <div class="region-card" data-region="nordeste">
+          <div class="region-card-icon">☀️</div>
+          <div class="region-card-name">Nordeste</div>
+          <div class="region-card-city">Fortaleza</div>
+          <div class="region-card-profile">Solar e Eólica</div>
+        </div>
+
+        <div class="region-card" data-region="sul">
+          <div class="region-card-icon">💨</div>
+          <div class="region-card-name">Sul</div>
+          <div class="region-card-city">Curitiba</div>
+          <div class="region-card-profile">Eólica e Biomassa</div>
+        </div>
+
+        <div class="region-card" data-region="sudeste">
+          <div class="region-card-icon">🏙️</div>
+          <div class="region-card-name">Sudeste</div>
+          <div class="region-card-city">São Paulo</div>
+          <div class="region-card-profile">Biomassa e Solar</div>
+        </div>
+
+        <div class="region-card" data-region="norte">
+          <div class="region-card-icon">🌿</div>
+          <div class="region-card-name">Norte</div>
+          <div class="region-card-city">Manaus</div>
+          <div class="region-card-profile">Biomassa e Solar</div>
+        </div>
+
+      </div>
+
+      <p id="msg" class="error-msg"></p>
+
+      <button id="startBtn">Iniciar Jogo</button>
+    </div>
+
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>

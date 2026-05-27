@@ -1,24 +1,135 @@
-#board {
-    display: grid;
-    grid-template-columns: repeat(5, 90px);
-    gap: 15px;
-    justify-content: center;
-    margin-top: 30px;
+/* ─── Board container — grass background ────────────────────────────────── */
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #14532d;
+  border-radius: 20px;
+  padding: 20px;
+  overflow: hidden;
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.35);
 }
 
+/* ─── Road rows — asphalt strips ─────────────────────────────────────────── */
+.road-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #1c1917;
+  padding: 8px;
+  border-top: 2px solid #292524;
+  border-bottom: 2px solid #292524;
+}
+
+/* ─── Dashed center line between cells ───────────────────────────────────── */
+.road-h-connector {
+  flex-shrink: 0;
+  width: 14px;
+  height: 6px;
+  background: repeating-linear-gradient(
+    to right,
+    #fbbf24 0, #fbbf24 5px,
+    transparent 5px, transparent 10px
+  );
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+/* ─── Turn connectors — grass area with asphalt bump on one side ─────────── */
+.road-turn {
+  position: relative;
+  height: 44px;
+  background: #14532d;
+}
+
+.road-turn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 94px;
+  background: #1c1917;
+}
+
+.road-turn-right::after {
+  right: 8px;
+  border-radius: 0 22px 22px 0;
+  border-right: 2px solid #292524;
+}
+
+.road-turn-left::after {
+  left: 8px;
+  border-radius: 22px 0 0 22px;
+  border-left: 2px solid #292524;
+}
+
+/* ─── Cell base ──────────────────────────────────────────────────────────── */
 .cell {
-    width: 90px;
-    height: 90px;
-    background-color: #22c55e;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 22px;     
-    font-weight: bold;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s, box-shadow 0.15s, filter 0.3s;
+  position: relative;
+  flex-shrink: 0;
 }
 
-.player{
-    background: yellow;
-    color:black;
+.cell:hover:not(.visited):not(.player) {
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(255,255,255,0.15);
 }
+
+.cell-icon  { font-size: 1.4rem; line-height: 1; }
+
+.cell-number {
+  font-size: 0.75rem;
+  font-weight: 900;
+  opacity: 0.8;
+  position: absolute;
+  top: 4px;
+  left: 6px;
+}
+
+.cell-label {
+  font-size: 0.56rem;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 3px;
+  line-height: 1.2;
+  padding: 0 4px;
+}
+
+/* ─── Visited cells — grayed out ─────────────────────────────────────────── */
+.cell.visited {
+  filter: grayscale(1) brightness(0.5);
+  cursor: default;
+}
+
+/* ─── Player marker ──────────────────────────────────────────────────────── */
+.cell.player {
+  box-shadow: 0 0 0 3px #facc15, 0 0 20px #facc1566;
+  transform: scale(1.1);
+  z-index: 2;
+}
+
+.cell.player::before {
+  content: '👤';
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  font-size: 0.72rem;
+}
+
+/* ─── Cell type colors ───────────────────────────────────────────────────── */
+.cell-start   { background: #166534; color: #fff; }
+.cell-end     { background: #92400e; color: #fff; }
+.cell-decision{ background: #1e3a5f; color: #bfdbfe; }
+.cell-event   { background: #3f2a00; color: #fde68a; }
+.cell-info    { background: #2e1065; color: #ddd6fe; }
+.cell-bonus   { background: #052e16; color: #6ee7b7; }
+.cell-penalty { background: #450a0a; color: #fca5a5; }

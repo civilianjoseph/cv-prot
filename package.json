@@ -4,6 +4,7 @@
   "description": "Um jogo simples onde o jogador joga um dado, e é afetado pelas casas onde cai, permitindo pequenas escolhas em seu caminho.",
   "main": "index.js",
   "scripts": {
+    "start": "npx serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

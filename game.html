@@ -1,66 +1,199 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>CidadeVerde - Jogo</title>
-
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/board.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CidadeVerde — Tabuleiro</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/board.css">
 </head>
 <body>
 
-    <div class="game-layout">
+  <!-- Header -->
+  <header class="game-header">
+    <div class="header-title">🌱 CidadeVerde</div>
+    <div class="header-region">
+      <span id="regionIcon"></span>
+      <span id="regionName"></span>
+      <span class="header-profile" id="energyProfile"></span>
+    </div>
+    <div id="playerName" class="header-player"></div>
+  </header>
 
-        <div class="left-panel">
+  <!-- Main layout -->
+  <div class="game-layout">
 
-            <div class="dice-area">
-            
-                <h2>🎲 Dado</h2>
-                <button id="rollDiceBtn">Rolar Dado</button>
-            </div>
+    <!-- Left panel: Dice -->
+    <div class="left-panel">
 
-        </div>
+      <div class="panel-card">
+        <h3>🎲 Dado</h3>
+        <div id="diceDisplay" class="dice-face">?</div>
+        <button id="rollDiceBtn" class="roll-btn">Rolar Dado</button>
+      </div>
 
-        <div class="center-panel">
-            
-            <h1>🌱 CidadeVerde</h1>
-            <div id="board"></div>
+      <div class="panel-card side-actions">
+        <button id="historyBtn" class="history-btn">📜 Histórico</button>
+        <button id="stopGameBtn" class="stop-btn">⛔ Parar Jogo</button>
+      </div>
 
-        </div>
-
-        <div class="right-panel">
-            
-            <h2>📊 Scores</h2>
-
-            <div class="score-box">🌱 Sustentabilidade: <span id="eco"></span></div>
-            <div class="score-box">💰 Economia: <span id="money"></span></div>
-            <div class="score-box">😊 Popularidade: <span id="popularity"></span></div>
-                        
-        </div>
+      <div class="panel-card legend-card">
+        <h3>🗺️ Legenda</h3>
+        <div class="legend-item start">🏁 Início / Fim</div>
+        <div class="legend-item decision">🔵 Decisão</div>
+        <div class="legend-item event">🟡 Evento Regional</div>
+        <div class="legend-item info">🟣 Informação</div>
+        <div class="legend-item bonus">🟢 Bônus</div>
+        <div class="legend-item penalty">🔴 Penalidade</div>
+      </div>
 
     </div>
 
-    <div id="dicePopup" class="popup hidden">
-        <div class="popup-content">
-            <h2>🎲 Você tirou</h2>
-            <h1 id="diceNumber"></h1>
-            <button id="closeDicePopup">Continuar</button>
-        </div>
+    <!-- Center: Board -->
+    <div class="center-panel">
+      <div id="board" class="board"></div>
     </div>
 
-    <div id="decisionPopup" class="popup hidden">
-        <div class="popup-content">
-            <h2 id="question"></h2>
-            <div id="options"></div>
+    <!-- Right panel: Scores -->
+    <div class="right-panel">
+
+      <div class="panel-card">
+        <h3>📊 Indicadores</h3>
+
+        <div class="score-item">
+          <div class="score-label">🌿 Environmental</div>
+          <div class="score-bar-track">
+            <div id="barEnvironmental" class="score-bar-fill"></div>
+          </div>
+          <div id="scoreEnvironmental" class="score-value">50 pts</div>
         </div>
+
+        <div class="score-item">
+          <div class="score-label">💰 Econômico</div>
+          <div class="score-bar-track">
+            <div id="barEconomic" class="score-bar-fill"></div>
+          </div>
+          <div id="scoreEconomic" class="score-value">50 pts</div>
+        </div>
+
+        <div class="score-item">
+          <div class="score-label">⚡ Energético</div>
+          <div class="score-bar-track">
+            <div id="barEnergetic" class="score-bar-fill"></div>
+          </div>
+          <div id="scoreEnergetic" class="score-value">50 pts</div>
+        </div>
+      </div>
+
     </div>
 
-    
-    <script type="module" src="./src/main.js"></script>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay hidden"></div>
+
+  <!-- Popup: Dado -->
+  <div id="dicePopup" class="popup hidden">
+    <div class="popup-content">
+      <h2>🎲 Você tirou</h2>
+      <div class="dice-result" id="diceNumber"></div>
+      <button id="closeDicePopup" class="btn-primary">Avançar</button>
+    </div>
+  </div>
+
+  <!-- Popup: Decisão -->
+  <div id="decisionPopup" class="popup hidden">
+    <div class="popup-content decision-popup">
+      <div class="popup-badge">🤔 Decisão</div>
+      <p id="decisionScenario" class="scenario-text"></p>
+      <div id="decisionOptions" class="options-list"></div>
+    </div>
+  </div>
+
+  <!-- Popup: Consequência -->
+  <div id="consequencePopup" class="popup hidden">
+    <div class="popup-content">
+      <div class="popup-badge">📋 Resultado</div>
+      <p id="consequenceText" class="consequence-text"></p>
+      <div id="consequenceEffects" class="effects-row"></div>
+      <button id="closeConsequencePopup" class="btn-primary">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Popup: Evento -->
+  <div id="eventPopup" class="popup hidden">
+    <div class="popup-content">
+      <div class="popup-badge">⚡ Evento Regional</div>
+      <h2 id="eventTitle"></h2>
+      <p id="eventDescription"></p>
+      <div id="eventEffects" class="effects-row"></div>
+      <button id="closeEventPopup" class="btn-primary">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Popup: Informação educativa -->
+  <div id="infoPopup" class="popup hidden">
+    <div class="popup-content info-popup">
+      <div class="popup-badge">📚 Sabia que?</div>
+      <h2 id="infoTitle"></h2>
+      <p id="infoContent" class="info-text"></p>
+      <button id="closeInfoPopup" class="btn-primary">Entendi!</button>
+    </div>
+  </div>
+
+  <!-- Popup: Bônus / Penalidade -->
+  <div id="bonusPopup" class="popup hidden">
+    <div class="popup-content">
+      <h2 id="bonusTitle"></h2>
+      <p id="bonusDescription"></p>
+      <div id="bonusEffects" class="effects-row"></div>
+      <button id="closeBonusPopup" class="btn-primary">OK</button>
+    </div>
+  </div>
+
+  <!-- Popup: Fim de jogo -->
+  <div id="endPopup" class="popup hidden">
+    <div class="popup-content">
+      <div class="popup-badge">🏁 Fim de Jogo</div>
+      <h2>Você completou o tabuleiro!</h2>
+      <p>Todas as decisões foram tomadas. Confira o impacto das suas escolhas na cidade.</p>
+      <button id="viewScoreBtn" class="btn-primary">Ver Resultado Final</button>
+    </div>
+  </div>
+
+  <!-- Popup: Histórico -->
+  <div id="historyPopup" class="popup hidden">
+    <div class="popup-content">
+      <div class="popup-badge">📜 Histórico da Partida</div>
+      <div id="historyList" class="history-list"></div>
+      <button id="closeHistoryPopup" class="btn-primary">Fechar</button>
+    </div>
+  </div>
+
+  <!-- Popup: Confirmar parada -->
+  <div id="stopPopup" class="popup hidden">
+    <div class="popup-content">
+      <div class="popup-badge">⛔ Parar Jogo</div>
+      <h2>Deseja encerrar a partida?</h2>
+      <p>Seu progresso será perdido e você voltará ao início.</p>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:16px;">
+        <button id="confirmStopBtn" class="btn-danger">Sim, parar</button>
+        <button id="cancelStopBtn" class="btn-secondary">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup: Preview de casa (clique no tabuleiro) -->
+  <div id="previewPopup" class="popup hidden">
+    <div class="popup-content">
+      <div class="popup-badge" id="previewBadge"></div>
+      <h2 id="previewTitle"></h2>
+      <p id="previewBody" class="info-text"></p>
+      <div id="previewEffects" class="effects-row"></div>
+      <button id="closePreviewPopup" class="btn-primary">Fechar</button>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>

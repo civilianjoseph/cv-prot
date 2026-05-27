@@ -1,19 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title>Score Final</title>
-        <link rel="stylesheet" href="./css/style.css">
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CidadeVerde — Resultado Final</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
 
-    <body>
-        <div class="home-container">
-            <h1>🏆 Score Final</h1>
-            <p>Aqui futuramente aparecerá o ranking.</p>
-           <!-- <div class="score-box">🌱 Sustentabilidade: <span id="finalEco"></span></div>
-            <div class="score-box">💰 Economia: <span id="finalMoney"></span></div>
-            <div class="score-box">😊 Popularidade: <span id="finalPopularity"></span></div>
-            <button id="playAgainBtn">Jogar Novamente</button> -->
+  <div id="scoreContainer" class="score-page">
+
+    <div class="score-hero">
+      <div class="score-rating-icon" id="ratingIcon"></div>
+      <h1 id="ratingLabel" class="score-rating-label"></h1>
+      <p id="ratingMsg" class="score-rating-msg"></p>
+    </div>
+
+    <div class="score-player-info">
+      <span id="finalNickname"></span> &nbsp;|&nbsp;
+      <span id="finalRegion"></span>
+    </div>
+
+    <div class="score-bars">
+
+      <div class="score-final-item">
+        <div class="score-final-label">🌿 Environmental</div>
+        <div class="score-bar-track">
+          <div id="barEnvironmental" class="score-bar-fill"></div>
         </div>
-    </body>
+        <div id="scoreEnvironmental" class="score-final-value"></div>
+      </div>
+
+      <div class="score-final-item">
+        <div class="score-final-label">💰 Econômico</div>
+        <div class="score-bar-track">
+          <div id="barEconomic" class="score-bar-fill"></div>
+        </div>
+        <div id="scoreEconomic" class="score-final-value"></div>
+      </div>
+
+      <div class="score-final-item">
+        <div class="score-final-label">⚡ Energético</div>
+        <div class="score-bar-track">
+          <div id="barEnergetic" class="score-bar-fill"></div>
+        </div>
+        <div id="scoreEnergetic" class="score-final-value"></div>
+      </div>
+
+    </div>
+
+    <p id="weakestArea" class="score-weakest"></p>
+
+    <div class="score-edu">
+      <h3>📚 O que você aprendeu nesta jornada?</h3>
+      <ul>
+        <li>🔋 <strong>Baterias de lítio</strong> permitem armazenar energia solar e eólica para usar quando o sol não brilha ou o vento não sopra.</li>
+        <li>🌊 <strong>Energia reversa</strong> no Rio Pinheiros une revitalização ambiental com geração de eletricidade limpa.</li>
+        <li>💧 A <strong>Represa Billings</strong> abastece 1,3 milhão de pessoas e pode integrar sistemas de energia renovável.</li>
+        <li>⚡ O Brasil tem mais de <strong>83% da energia elétrica</strong> vinda de fontes renováveis — um dos maiores índices do mundo.</li>
+        <li>🌱 Cada decisão energética tem impactos <strong>ambientais, econômicos e energéticos</strong> interligados.</li>
+      </ul>
+    </div>
+
+    <div class="score-history-section">
+      <h3>📜 Histórico da Partida</h3>
+      <div id="scoreHistoryList" class="history-list"></div>
+    </div>
+
+    <button id="playAgainBtn" class="btn-primary">Jogar Novamente</button>
+
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
 </html>

@@ -1,12 +1,14 @@
 export const gameState = {
-
-    player: {
-        nickname: "",
-        position: 0
+  player: {
+    nickname: '',
+    position: 0,
+    region: null
   },
   score: {
-    sustentabilidade: 0,
-    economia: 0,
-    popularidade: 0     
-  }
+    environmental: 50,
+    economic: 50,
+    energetic: 50
+  },
+  history: [],
+  finished: false
 };
